@@ -72,7 +72,30 @@ var swiper = new Swiper(".blogs-slider", {
 (function() {
     emailjs.init("9mLB3Ejug6ZzYkyT4"); // Substitua com seu User ID
 
-    document.getElementById('contact-form').addEventListener('submit', function(event) {
+    document.getElementById('contact-form').addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const formData = new FormData(this);
+        const data = Object.fromEntries(formData.entries());
+
+        try {
+        const response = await fetch('https://seuservidor.com/api/send-diet', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(data),
+        });
+
+        const result = await response.json();
+        if (response.ok) {
+            alert('Mensagem enviada com sucesso! Verifique seu e-mail.');
+        } else {
+            console.error('Erro:', result.message);
+            alert('Ocorreu um erro ao enviar sua mensagem.');
+        }
+        } catch (error) {
+        console.error('Erro na solicitação:', error);
+        alert('Não foi possível enviar sua mensagem.');
+        }
       event.preventDefault(); // Impede o envio padrão do formulário
 
       emailjs.sendForm('service_a259688', 'template_71hcqph', this)

@@ -537,7 +537,7 @@ label{
     color: #fff;
     font-size: 20px;
 }
-input[type="text"], input[type="email"], textarea {
+input[type="text"], input[type="email"],input[type="number"], textarea {
     width: 100%;
     padding: 1rem;
     margin: 1rem 0;
